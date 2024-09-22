@@ -11,7 +11,7 @@ jobs:
       - name: create .env file
         uses: SpicyPizza/create-envfile@v1
         with:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
+          REACT_APP_OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
       - name: build website
         run: npm ci && npm run build
       - name: push to firebase
