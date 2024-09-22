@@ -1,0 +1,23 @@
+name: Deploy to firebase
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: create .env file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
+      - name: build website
+        run: npm ci && npm run build
+      - name: push to firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PERSONALSITE_989C9 }}'
+          channelId: live
+          projectId: personalsite-989c9
